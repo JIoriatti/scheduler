@@ -20,8 +20,9 @@ body {
     align-items: center;
   }
   .row{
-    flex-grow: 1;
-    margin: 5em;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 1em;
     align-items: center;
     white-space: pre-wrap;
     height: 80px;
@@ -67,17 +68,11 @@ body {
     border-radius: 15px;
   }
   
-  /* .row {
-    white-space: pre-wrap;
-    height: 80px;
-    border-top: 1px solid white;
-  } */
-  
-  .hour {
+  /* .hour {
     background-color: #ffffff;
     color: #000000;
     border-top: 1px dashed #000000;
-  }
+  } */
   
   .past {
     background-color: #d3d3d3;
