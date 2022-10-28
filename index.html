@@ -18,6 +18,7 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css" />
     <title>Work Day Scheduler</title>
   </head>
@@ -30,8 +31,11 @@
       <!--Added button to create schedule on-click-->
       <button id="btn">Get Started</button>
     </header>
-    <div class="container">
+    <div class="stickywrapper">
+      <div class="bar inactive"></div>
+      <div class="container">
       <!-- Timeblocks go here -->
+      </div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

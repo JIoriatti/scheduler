@@ -3,6 +3,12 @@ const scheduleContainer = document.querySelector(".container");
 const dateContainer = document.getElementById("currentDay");
 const headerEl = document.querySelector("header");
 const jumbotronEl = document.querySelector(".jumbotron");
+const buttonEl = document.getElementById("btn");
+const barEl = document.querySelector(".bar");
+const htmlEl = document.querySelector("html");
+//Adding a smooth scroll property to the entire HTML, planning on having the window scroll down to the schedule when the GET STARTED button is clicked.
+htmlEl.style.scrollBehavior="smooth";
+
 //Function to display the date
 function currentDate(){
     dateContainer.textContent = moment();
@@ -15,13 +21,38 @@ setInterval(currentDate, 1000);
 dateContainer.style.fontSize = "32px";
 dateContainer.style.fontWeight = "bold";
 
-//Declaring a function to utilize the jquery fadeIn() and fadeOut() methods to manipulate elements come one screen when scrolling.
-function fadeElements(){
-
+//Declaring a function to populate an array of interval times (in milliseconds) to be used in the fade-in function to assign progressively longer fade-in times for each row generated.
+function setFadeInterval(){
+    const intervalArray =[];
+    for(let i=0; i<=15;i++){
+        intervalArray[i] = ((i+1)*5000)/16;
+        console.log(intervalArray[i]);
+    }
+    
+    return intervalArray;
 };
+var fadeIntArray = setFadeInterval();
+console.log(fadeIntArray);
+//Using jQuery click method on the GET STARTED button to utilize the jquery fadeIn() method to fade the schedule rows in when the GET STARTED button is clicked.
+//Assigning each row it's own fade-in interval time by using the coresponding index of fadeIntArray.
+$(document).ready(function(){
+    $("#btn").click(function(){
+        for(let i=0; i<=15; i++){
+            $(schedRow[i]).fadeIn(fadeIntArray[i]);
+            console.log(fadeIntArray[i]);
+        }
+    });
+    //Added in a scroll-to 470 pixels down functionality on-click.
+    $("#btn").click(function(){
+        window.scroll(0, 470);
+    })
+});
 
-
-const buttonEl = document.getElementById("btn");
+$(document).ready(function(){
+    $("#btn").click(function(){
+        barEl.classList.remove("inactive");
+    });
+});
 
 function generateSchedule(){
     const currentHour = moment().hour();
@@ -40,13 +71,12 @@ function generateSchedule(){
         //Giving each div row a data attribute refering to which hour it blongs to.
         schedRow.setAttribute("data-hour", i+5);
         schedRow.setAttribute("class", "row");
+        schedRow.style.display = "none";
         scheduleContainer.appendChild(schedRow);
     };
     //Reassigning the shedRow variable to target all newly generated div rows.
     schedRow = document.querySelectorAll(".row");
-    console.log($('.row').data().hour);
     //YES THIS WORKED! Had a lot of trouble trying to access the data- attribute, but noticed in objects of the schedRow array that the key:pair nomenclature was dataset:hour, not data:hour!
-    console.log(schedRow);
     // debugger;
     for(let i=0; i<16; i++){
         console.log(schedRow[i].dataset.hour);
@@ -63,7 +93,7 @@ function generateSchedule(){
             console.log("future");
         };
     };
-    //Creating other schedule elements, the text fields and the save buttons.
+    //Creating and appending save buttons per row.
     for(let i=0; i<=15;i++){
         const saveButton = document.createElement('button');
         schedRow[i].appendChild(saveButton);
@@ -71,17 +101,16 @@ function generateSchedule(){
         saveButton.setAttribute("class", "saveBtn")
     };
 
-
+    //Disabling GET STARTED button after being clicked.
     buttonEl.setAttribute("disabled","disabled");
     buttonEl.style.pointerEvents = "none"
     buttonEl.style.filter = "grayscale(100%)";
+    
+    //Creating a reset after the GET STARTED button is clicked, will allow the user to reset all fields.
     const resetButton = document.createElement("button");
     resetButton.setAttribute("class", "reset");
     resetButton.textContent = "RESET";
-    headerEl.appendChild(resetButton);
-    const htmlEl = document.querySelector("html");
-    //Adding a smooth scroll property to the entire HTML, planning on having the window scroll down to the schedule when the GET STARTED button is clicked.
-    htmlEl.style.scrollBehavior="smooth";
+    barEl.appendChild(resetButton);
     
     const resetButtonEl = document.querySelector(".reset");
 //Creating a function to reset the state of the webpage if the user decides to clear/start over.
@@ -94,6 +123,9 @@ function generateSchedule(){
         buttonEl.removeAttribute("disabled", "disabled");
         buttonEl.style.filter = "none";
         buttonEl.style.pointerEvents = "initial";
+        window.scroll({top: 0, behavior: 'smooth'});
+        barEl.classList.add("inactive")
+
     };
     resetButtonEl.addEventListener("click", reset);
 };
