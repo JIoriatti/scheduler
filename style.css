@@ -1,10 +1,12 @@
 html{
   zoom: 125%;
+  height: 100%;
 }
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     line-height: 1;
+    background: linear-gradient(lightblue, lightgreen);
   }
   
   textarea {
@@ -14,6 +16,9 @@ body {
     color: #000000;
     border-left: 1px solid black;
     padding: 10px;
+    width: 80%;
+    margin-right: 1em;
+    margin-left: 1em;
   }
   /* Added flexbox display to header to keep the button from moving other elements on click*/
   header{
@@ -30,6 +35,10 @@ body {
     font-weight: bold;
     font-size: 48px;
   }
+  .timeSlot{
+   flex-grow: 1;
+   text-align: center;
+  }
   .stickywrapper{
     height: 100%;
   }
@@ -43,7 +52,10 @@ body {
     background-color: lightblue;
     height: 60px;
     width: 100%;
-    border-bottom: solid 5px black;
+    border-top: solid 3px rgb(70, 70, 70);
+    border-bottom: solid 3px rgb(70, 70, 70);
+    box-shadow: 0 0 2px rgb(0, 0, 0);
+    justify-content: flex-end;
   }
   .inactive{
     display: none;
@@ -68,21 +80,26 @@ body {
     padding: 1em;
     margin: 2em;
     margin-bottom: 5em;
-    border-radius: 2px;
-    background: linear-gradient(lightblue, whitesmoke);
+    border-radius: 1px;
     text-transform: uppercase;
+    background-color: lightgray;
     color: rgb(82, 87, 86);
     font-weight: bold;
     box-shadow: 0 0 2px rgb(0, 0, 0);
     cursor: pointer;
+    transition: 0.1s ease-in-out;
   }
   #btn:hover{
-    background: lightblue;
-    box-shadow: 0 0 10px rgb(0, 0, 0);    
+    border-radius: 1px;
+    background-color: lightblue;
+    box-shadow: 0 0 5px rgb(198, 246, 255) inset,
+    0 0 10px rgb(198, 246, 255) inset,
+    0 0 15px rgb(198, 246, 255) inset; 
   }
   #btn:active{
     transform: scale(99%);
     opacity: 70%;
+    transition: none;
   }
   
   .jumbotron {
@@ -123,40 +140,58 @@ body {
     background-color: #77dd77;
     color: white;
   }
-  .reset{
+  .reset, .saveAll{
+    margin-right: 2em;
     flex-basis: 150px;
     height: 50%;
     border: none;
     border-style: none;
     outline: none;
     border-radius: 1px;
-    background: linear-gradient(lightblue, whitesmoke);
+    background-color: lightgray;
     color: rgb(82, 87, 86);
     font-weight: bold;
     box-shadow: 0 0 2px rgb(0, 0, 0);
     cursor: pointer;
+    transition: 0.1s ease-in-out;
   }
-  .reset:hover{
-    background: lightblue;
-    box-shadow: 0 0 10px rgb(0, 0, 0); 
+  .reset:hover, .saveAll:hover{
+    background-color: lightblue;
+    box-shadow: 0 0 5px rgb(198, 246, 255) inset,
+    0 0 10px rgb(198, 246, 255) inset,
+    0 0 15px rgb(198, 246, 255) inset;
+    border-radius: 1px; 
   }
-  .reset:active{
+  .reset:active, .saveAll:active{
     transform: scale(99%);   
     opacity: 70%;
+    transition: none;
+  }
+  .saveButtons {
+    border: none;
+    border-style: none;
+    outline: none;
+    border-radius: 1px;
+    background-color: lightgray;
+    color: rgb(82, 87, 86);
+    font-weight: bold;
+    box-shadow: 0 0 1px rgb(0, 0, 0);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.1s ease-in-out;
   }
   
-  .saveBtn {
-    border-left: 1px solid black;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #06aed5;
-    color: rgb(83, 83, 83);
-    left: 90%;
+  .saveButtons:hover {
+    border-radius: 1px;
+    background-color: lightblue;
+    box-shadow: 0 0 5px rgb(198, 246, 255) inset,
+    0 0 10px rgb(198, 246, 255) inset,
+    0 0 15px rgb(198, 246, 255) inset;  
   }
-  
-  .saveBtn i:hover {
-    font-size: 20px;
-    transition: all 0.3s ease-in-out;
+  .saveButtons:active{
+    transform: scale(99%);   
+    opacity: 70%;
+    transition: none;
   }
 .container{
     width: 100%;

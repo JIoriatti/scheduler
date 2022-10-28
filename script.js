@@ -25,7 +25,7 @@ dateContainer.style.fontWeight = "bold";
 function setFadeInterval(){
     const intervalArray =[];
     for(let i=0; i<=15;i++){
-        intervalArray[i] = ((i+1)*5000)/16;
+        intervalArray[i] = ((i+1)*3000)/16;
         console.log(intervalArray[i]);
     }
     
@@ -54,25 +54,29 @@ $(document).ready(function(){
     });
 });
 
+
 function generateSchedule(){
     const currentHour = moment().hour();
     console.log(currentHour);
     for(let i=0; i<=15;i++){
         const schedRow = document.createElement('div');
+        const timeDiv = document.createElement('div');
         if((i+5)<=12){
-            schedRow.textContent = (i+5) + " am";
+            timeDiv.textContent = (i+5) + " am";
         }
         if((i+5)===12){
-            schedRow.textContent = (i+5) + " am (Noon)";
+            timeDiv.textContent = (i+5) + " am (Noon)";
         }
         if((i+5)>12){
-            schedRow.textContent = (i-3) + " pm";
+            timeDiv.textContent = (i-3) + " pm";
         }
         //Giving each div row a data attribute refering to which hour it blongs to.
         schedRow.setAttribute("data-hour", i+5);
         schedRow.setAttribute("class", "row");
         schedRow.style.display = "none";
         scheduleContainer.appendChild(schedRow);
+        schedRow.appendChild(timeDiv);
+        timeDiv.setAttribute("class", "timeSlot");
     };
     //Reassigning the shedRow variable to target all newly generated div rows.
     schedRow = document.querySelectorAll(".row");
@@ -93,26 +97,35 @@ function generateSchedule(){
             console.log("future");
         };
     };
-    //Creating and appending save buttons per row.
+    //Creating and appending save buttons and textareas per row.
     for(let i=0; i<=15;i++){
         const saveButton = document.createElement('button');
+        const textField = document.createElement('textarea');
+        schedRow[i].appendChild(textField);
         schedRow[i].appendChild(saveButton);
         saveButton.textContent = "Save";
-        saveButton.setAttribute("class", "saveBtn")
+        saveButton.setAttribute("class", "saveButtons");
     };
 
     //Disabling GET STARTED button after being clicked.
     buttonEl.setAttribute("disabled","disabled");
     buttonEl.style.pointerEvents = "none"
     buttonEl.style.filter = "grayscale(100%)";
+    buttonEl.style.opacity= "70%";
     
     //Creating a reset after the GET STARTED button is clicked, will allow the user to reset all fields.
     const resetButton = document.createElement("button");
     resetButton.setAttribute("class", "reset");
     resetButton.textContent = "RESET";
     barEl.appendChild(resetButton);
+    //Creating a Save All button that will store all data into local storage
+    const saveAll = document.createElement("button");
+    saveAll.setAttribute("class", "saveAll");
+    saveAll.textContent = "SAVE ALL";
+    barEl.appendChild(saveAll);
     
     const resetButtonEl = document.querySelector(".reset");
+    const saveAllEl = document.querySelector(".saveAll");
 //Creating a function to reset the state of the webpage if the user decides to clear/start over.
 //May add in local storage to create a revert/history button.
     function reset(){
@@ -120,11 +133,13 @@ function generateSchedule(){
             schedRow[i].remove();
         };
         resetButtonEl.remove();
+        saveAllEl.remove();
         buttonEl.removeAttribute("disabled", "disabled");
         buttonEl.style.filter = "none";
         buttonEl.style.pointerEvents = "initial";
         window.scroll({top: 0, behavior: 'smooth'});
         barEl.classList.add("inactive")
+        buttonEl.style.opacity= "100%";
 
     };
     resetButtonEl.addEventListener("click", reset);
