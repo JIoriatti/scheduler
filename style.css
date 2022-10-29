@@ -140,7 +140,7 @@ body {
     background-color: #77dd77;
     color: white;
   }
-  .reset, .saveAll{
+  .reset, .saveAll, .clearAll{
     margin-right: 2em;
     flex-basis: 150px;
     height: 50%;
@@ -155,14 +155,20 @@ body {
     cursor: pointer;
     transition: 0.1s ease-in-out;
   }
-  .reset:hover, .saveAll:hover{
+  .reset{
+    margin-right: 64em;
+  }
+  .saveAll{
+    order: 3;
+  }
+  .reset:hover, .saveAll:hover, .clearAll:hover{
     background-color: lightblue;
     box-shadow: 0 0 5px rgb(198, 246, 255) inset,
     0 0 10px rgb(198, 246, 255) inset,
     0 0 15px rgb(198, 246, 255) inset;
     border-radius: 1px; 
   }
-  .reset:active, .saveAll:active{
+  .reset:active, .saveAll:active, .clearAll:active{
     transform: scale(99%);   
     opacity: 70%;
     transition: none;

@@ -47,7 +47,7 @@ $(document).ready(function(){
         window.scroll(0, 470);
     })
 });
-
+//Removing the inactive class assigned to the sticky bar element when the GET STARTED button is clicked. The inactive class simply hides the sticky bar element.
 $(document).ready(function(){
     $("#btn").click(function(){
         barEl.classList.remove("inactive");
@@ -116,36 +116,49 @@ function generateSchedule(){
     buttonEl.style.filter = "grayscale(100%)";
     buttonEl.style.opacity= "70%";
     
-    //Creating a reset after the GET STARTED button is clicked, will allow the user to reset all fields.
+    //Creating a reset button after the GET STARTED button is clicked, will allow the user to reset all fields.
     const resetButton = document.createElement("button");
     resetButton.setAttribute("class", "reset");
     resetButton.textContent = "RESET";
     barEl.appendChild(resetButton);
+    
     //Creating a Save All button that will store all data into local storage
     const saveAll = document.createElement("button");
     saveAll.setAttribute("class", "saveAll");
     saveAll.textContent = "SAVE ALL";
     barEl.appendChild(saveAll);
     
+    //Creating a Clear All button that will clear the text content of the textarea elements BUT not delete local storage.
+    const clearAll = document.createElement("button");
+    clearAll.setAttribute("class", "clearAll");
+    clearAll.textContent = "CLEAR ALL";
+    barEl.appendChild(clearAll);
+    
+    //Targeting the Reset, Clear All and Save All buttons in order to remove them when the user wants to reset the application.
     const resetButtonEl = document.querySelector(".reset");
     const saveAllEl = document.querySelector(".saveAll");
+    const clearAllEl = document.querySelector(".clearAll");
+    
     //Creating a function to reset the state of the webpage if the user decides to clear/start over.
-    //May add in local storage to create a revert/history button.
     function reset(){
         for(let i=0; i<=15;i++){
             schedRow[i].remove();
         };
         resetButtonEl.remove();
         saveAllEl.remove();
+        clearAllEl.remove();
         buttonEl.removeAttribute("disabled", "disabled");
         buttonEl.style.filter = "none";
         buttonEl.style.pointerEvents = "initial";
         window.scroll({top: 0, behavior: 'smooth'});
         barEl.classList.add("inactive")
         buttonEl.style.opacity= "100%";
+        //Using clear method to clear all local storage when the user wants to reset the page.
+        localStorage.clear();
 
     };
     resetButtonEl.addEventListener("click", reset);
+    
     //Declaring a function to save all text fields into local storage
     function saveAllText(){
         const textAreaEl = document.querySelectorAll("textarea");
@@ -157,10 +170,16 @@ function generateSchedule(){
     };
     saveAllEl.addEventListener("click", saveAllText);
 
+    //Declaring a function to clear all text fields when the user clicks on the CLEAR ALL button, but will still preserve local storage.
+    function clearAllText(){
+        const textAreaEl = document.querySelectorAll("textarea");
+        for(let i=0; i<=15; i++){
+            textAreaEl[i].value = "";
+        };
+    };
+    clearAllEl.addEventListener("click", clearAllText);
 
 };
-
-
 buttonEl.addEventListener("click", generateSchedule);
 
 
