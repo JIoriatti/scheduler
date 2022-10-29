@@ -104,6 +104,10 @@ function generateSchedule(){
         //Declaring local storage variable to assign the text content/value of the textareas when reloading the page.
         let textData = localStorage.getItem("row " + i);
         textField.textContent = textData;
+        //Assinging data-attribute to textarea elements to be used for the individual save button function.
+        textField.setAttribute("data-field", i);
+        //Assinging data-attribute to individual save button elements to be used for the individual save button function.
+        saveButton.setAttribute("data-save", i);
         schedRow[i].appendChild(textField);
         schedRow[i].appendChild(saveButton);
         saveButton.textContent = "Save";
@@ -178,8 +182,22 @@ function generateSchedule(){
         };
     };
     clearAllEl.addEventListener("click", clearAllText);
-
+    
+    //Lastly, declaring a function to save individual rows when user clicks on Save button within a row. This one took me a while for some reason. Couldn't get the logic behind it down for a while.
+    const savebuttonsEl = document.querySelectorAll(".saveButtons");
+    function saveIndividual(event){
+        const textAreaEl = document.querySelectorAll("textarea");
+        target = event.target;
+        for(let i=0; i<savebuttonsEl.length; i++){
+            if(target.dataset.save == i){
+                localStorage.setItem("row "+ i, textAreaEl[i].value);
+            };
+        };
+    };
+    // Using the forEach() method to add the same event listener to all individual save buttons.
+    savebuttonsEl.forEach(save=>{
+        save.addEventListener("click", saveIndividual);
+    });    
 };
 buttonEl.addEventListener("click", generateSchedule);
-
 
