@@ -101,6 +101,9 @@ function generateSchedule(){
     for(let i=0; i<=15;i++){
         const saveButton = document.createElement('button');
         const textField = document.createElement('textarea');
+        //Declaring local storage variable to assign the text content/value of the textareas when reloading the page.
+        let textData = localStorage.getItem("row " + i);
+        textField.textContent = textData;
         schedRow[i].appendChild(textField);
         schedRow[i].appendChild(saveButton);
         saveButton.textContent = "Save";
@@ -126,8 +129,8 @@ function generateSchedule(){
     
     const resetButtonEl = document.querySelector(".reset");
     const saveAllEl = document.querySelector(".saveAll");
-//Creating a function to reset the state of the webpage if the user decides to clear/start over.
-//May add in local storage to create a revert/history button.
+    //Creating a function to reset the state of the webpage if the user decides to clear/start over.
+    //May add in local storage to create a revert/history button.
     function reset(){
         for(let i=0; i<=15;i++){
             schedRow[i].remove();
@@ -143,6 +146,18 @@ function generateSchedule(){
 
     };
     resetButtonEl.addEventListener("click", reset);
+    //Declaring a function to save all text fields into local storage
+    function saveAllText(){
+        const textAreaEl = document.querySelectorAll("textarea");
+        console.log(textAreaEl);
+        //Using a for loop to set the text information of each textarea element into a local storage key:value pair.
+        for(let i=0; i<=15; i++){
+            localStorage.setItem("row " + i, textAreaEl[i].value);
+        };
+    };
+    saveAllEl.addEventListener("click", saveAllText);
+
+
 };
 
 
