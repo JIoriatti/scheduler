@@ -140,7 +140,7 @@ body {
     color: white;
   }
   .reset, .saveAll, .clearAll{
-    margin-right: 2em;
+    
     flex-basis: 150px;
     height: 50%;
     border: none;
@@ -154,11 +154,16 @@ body {
     cursor: pointer;
     transition: 0.1s ease-in-out;
   }
+  .clearAll{
+    margin-right: 2em;
+  }
   .reset{
-    margin-right: 64em;
+    margin-right: auto;
+    margin-left: 2em;
   }
   .saveAll{
     order: 3;
+    margin-right: 2em;
   }
   .reset:hover, .saveAll:hover, .clearAll:hover{
     background-color: lightblue;

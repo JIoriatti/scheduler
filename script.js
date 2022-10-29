@@ -42,10 +42,10 @@ $(document).ready(function(){
             console.log(fadeIntArray[i]);
         }
     });
-    //Added in a scroll-to 390 pixels down functionality on-click.
-    $("#btn").click(function(){
-        window.scroll(0, 390);
-    })
+    //Added in a scroll-to 390 pixels down functionality on-click. <--- Ended up removing this feature, got pretty annoying I must admit.
+    // $("#btn").click(function(){
+    //     window.scroll(0, 390);
+    // });
 });
 //Removing the inactive class assigned to the sticky bar element when the GET STARTED button is clicked. The inactive class simply hides the sticky bar element.
 $(document).ready(function(){
