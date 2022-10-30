@@ -68,7 +68,7 @@ function generateSchedule(){
             timeDiv.textContent = (i+5) + " am (Noon)";
         }
         if((i+5)>12){
-            timeDiv.textContent = (i-3) + " pm";
+            timeDiv.textContent = (i-7) + " pm";
         }
         //Giving each div row a data attribute refering to which hour it blongs to.
         schedRow.setAttribute("data-hour", i+5);
